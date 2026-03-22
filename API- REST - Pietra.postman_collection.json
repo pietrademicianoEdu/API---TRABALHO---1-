@@ -1,0 +1,130 @@
+{
+  "info": {
+    "_postman_id": "1744a527-a583-46dd-b94b-efd2d8037747",
+    "name": "API- REST - Pietra",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53399916",
+    "_collection_link": "https://go.postman.co/collection/53399916-1744a527-a583-46dd-b94b-efd2d8037747?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Buscar produtos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/produtos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "produtos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar preço max.",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/produtos?preco_max=500",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "produtos"
+          ],
+          "query": [
+            {
+              "key": "preco_max",
+              "value": "500"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar por id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/produtos/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "produtos",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar por categoria",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/produtos?categoria=Informática",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "produtos"
+          ],
+          "query": [
+            {
+              "key": "categoria",
+              "value": "Informática"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Buscar por preço",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/produtos?preco_max=100",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "produtos"
+          ],
+          "query": [
+            {
+              "key": "preco_max",
+              "value": "100"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
