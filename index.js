@@ -20,8 +20,6 @@ let filmes = [
 
 let proximoId = 11;
 
-// 2️⃣ FUNCIONALIDADES OBRIGATÓRIAS (GET)
-
 // Listar todos + Filtros + Ordenação + Paginação
 app.get('/api/filmes', (req, res) => {
     let resultado = [...filmes];
@@ -63,15 +61,50 @@ app.get('/api/filmes/:id', (req, res) => {
 
 // Endpoint POST (conforme ensinado nos slides)
 app.post('/api/filmes', (req, res) => {
+    // 1. Extrair dados do body
     const { titulo, diretor, ano, genero, nota } = req.body;
 
-    // Validações básicas (Slide 5)
+    // 2. VALIDAÇÃO: Campos obrigatórios (Slide 5)
     if (!titulo || !diretor || !ano || !genero || !nota) {
-        return res.status(400).json({ erro: "Todos os campos são obrigatórios!" });
+        return res.status(400).json({ 
+            erro: "Campos obrigatórios: titulo, diretor, ano, genero e nota" 
+        });
     }
 
-    const novoFilme = { id: proximoId++, titulo, diretor, ano, genero, nota };
+    // 3. VALIDAÇÃO: Tipo de dado (Ano e Nota devem ser números)
+    if (typeof ano !== 'number' || typeof nota !== 'number') {
+        return res.status(400).json({ 
+            erro: "Ano e Nota devem ser valores numéricos" 
+        });
+    }
+
+    // 4. VALIDAÇÃO: Regra de negócio (Ano não pode ser no futuro)
+    if (ano > 2026 || ano < 1895) {
+        return res.status(400).json({ 
+            erro: "Ano inválido (deve ser entre 1895 e 2026)" 
+        });
+    }
+
+    // 5. VALIDAÇÃO: Tamanho mínimo do título
+    if (titulo.length < 2) {
+        return res.status(400).json({ 
+            erro: "O título deve ter pelo menos 2 caracteres" 
+        });
+    }
+
+    // 6. Se passou em tudo, criar o objeto
+    const novoFilme = {
+        id: proximoId++,
+        titulo,
+        diretor,
+        ano,
+        genero,
+        nota
+    };
+
     filmes.push(novoFilme);
+
+    // 7. Retornar sucesso com status 201 (Slide 4)
     res.status(201).json(novoFilme);
 });
 

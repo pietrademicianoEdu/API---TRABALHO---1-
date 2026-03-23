@@ -1,65 +1,28 @@
 {
   "info": {
-    "_postman_id": "1744a527-a583-46dd-b94b-efd2d8037747",
-    "name": "API- REST - Pietra",
+    "_postman_id": "b31405fe-a054-42f0-a2fb-6032fe0c264a",
+    "name": "API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "53399916",
-    "_collection_link": "https://go.postman.co/collection/53399916-1744a527-a583-46dd-b94b-efd2d8037747?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/53399916-b31405fe-a054-42f0-a2fb-6032fe0c264a?source=collection_link"
   },
   "item": [
     {
-      "name": "Buscar produtos",
+      "name": "FILME 1",
       "request": {
-        "method": "GET",
+        "method": "POST",
         "header": [],
-        "url": {
-          "raw": "http://localhost:3000/api/produtos",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "3000",
-          "path": [
-            "api",
-            "produtos"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Buscar preço max.",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:3000/api/produtos?preco_max=500",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "3000",
-          "path": [
-            "api",
-            "produtos"
-          ],
-          "query": [
-            {
-              "key": "preco_max",
-              "value": "500"
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"titulo\": \"O Senhor dos Anéis: A Sociedade do Anel\",\r\n  \"diretor\": \"Peter Jackson\",\r\n  \"ano\": 2001,\r\n  \"genero\": \"Fantasia\",\r\n  \"nota\": 8.8\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
             }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Buscar por id",
-      "request": {
-        "method": "GET",
-        "header": [],
+          }
+        },
         "url": {
-          "raw": "http://localhost:3000/api/produtos/2",
+          "raw": "http://localhost:3000/api/filmes",
           "protocol": "http",
           "host": [
             "localhost"
@@ -67,46 +30,28 @@
           "port": "3000",
           "path": [
             "api",
-            "produtos",
-            "2"
+            "filmes"
           ]
         }
       },
       "response": []
     },
     {
-      "name": "Buscar por categoria",
+      "name": "FILME 2",
       "request": {
-        "method": "GET",
+        "method": "POST",
         "header": [],
-        "url": {
-          "raw": "http://localhost:3000/api/produtos?categoria=Informática",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "3000",
-          "path": [
-            "api",
-            "produtos"
-          ],
-          "query": [
-            {
-              "key": "categoria",
-              "value": "Informática"
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"titulo\": \"Vingadores: Ultimato\",\r\n  \"diretor\": \"Anthony e Joe Russo\",\r\n  \"ano\": 2019,\r\n  \"genero\": \"Ação\",\r\n  \"nota\": 8.4\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
             }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Buscar por preço",
-      "request": {
-        "method": "GET",
-        "header": [],
+          }
+        },
         "url": {
-          "raw": "http://localhost:3000/api/produtos?preco_max=100",
+          "raw": "http://localhost:3000/api/filmes",
           "protocol": "http",
           "host": [
             "localhost"
@@ -114,13 +59,94 @@
           "port": "3000",
           "path": [
             "api",
-            "produtos"
-          ],
-          "query": [
-            {
-              "key": "preco_max",
-              "value": "100"
+            "filmes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FILME 3",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"titulo\": \"O Rei Leão\",\r\n  \"diretor\": \"Roger Allers\",\r\n  \"ano\": 1994,\r\n  \"genero\": \"Animação\",\r\n  \"nota\": 8.5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
             }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/filmes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "filmes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FILME 4",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"titulo\": \"Coringa\",\r\n  \"diretor\": \"Todd Phillips\",\r\n  \"ano\": 2019,\r\n  \"genero\": \"Drama\",\r\n  \"nota\": 8.4\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/filmes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "filmes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FILME 5",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"titulo\": \"Ta chovendo hamburguer\",\r\n  \"diretor\": \"Todd Phillips\",\r\n  \"ano\": 2019,\r\n  \"genero\": \"comedia\",\r\n  \"nota\": 8.4\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/filmes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "filmes"
           ]
         }
       },
