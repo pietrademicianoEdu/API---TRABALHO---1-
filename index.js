@@ -1,64 +1,78 @@
 const express = require('express');
 const app = express();
 
+// MIDDLEWARE OBRIGATÓRIO (Slide 2)
 app.use(express.json());
 
-// Dados em memória
-let produtos = [
-    { id: 1, nome: "Notebook Dell", preco: 3500, categoria: "Informática", estoque: 15 },
-    { id: 2, nome: "Mouse Logitech", preco: 150, categoria: "Informática", estoque: 50 },
-    { id: 3, nome: "Livro JavaScript", preco: 89, categoria: "Papelaria", estoque: 30 },
-    { id: 4, nome: "Teclado Mecânico", preco: 450, categoria: "Informática", estoque: 20 },
-    {id: 5, nome: "Caderno Rosa", preco:40, cadtegoria: "Papelaria", estoque: 30}
-
+// 1. Array com 10 itens iniciais (Campos: id, titulo, diretor, ano, genero, nota)
+let filmes = [
+    { id: 1, titulo: "Inception", diretor: "Christopher Nolan", ano: 2010, genero: "Sci-Fi", nota: 8.8 },
+    { id: 2, titulo: "The Matrix", diretor: "Lana Wachowski", ano: 1999, genero: "Sci-Fi", nota: 8.7 },
+    { id: 3, titulo: "O Poderoso Chefão", diretor: "Francis Ford Coppola", ano: 1972, genero: "Crime", nota: 9.2 },
+    { id: 4, titulo: "Pulp Fiction", diretor: "Quentin Tarantino", ano: 1994, genero: "Crime", nota: 8.9 },
+    { id: 5, titulo: "Interestelar", diretor: "Christopher Nolan", ano: 2014, genero: "Sci-Fi", nota: 8.7 },
+    { id: 6, titulo: "Parasita", diretor: "Bong Joon-ho", ano: 2019, genero: "Drama", nota: 8.5 },
+    { id: 7, titulo: "Cidade de Deus", diretor: "Fernando Meirelles", ano: 2002, genero: "Drama", nota: 8.6 },
+    { id: 8, titulo: "O Cavaleiro das Trevas", diretor: "Christopher Nolan", ano: 2008, genero: "Ação", nota: 9.0 },
+    { id: 9, titulo: "Clube da Luta", diretor: "David Fincher", ano: 1999, genero: "Drama", nota: 8.8 },
+    { id: 10, titulo: "O Auto da Compadecida", diretor: "Guel Arraes", ano: 2000, genero: "Comédia", nota: 8.7 }
 ];
 
-// GET /api/produtos - Listar com filtros, ordenação e paginação
-app.get('/api/produtos', (req, res) => {
-    const { categoria, preco_max, preco_min, ordem, direcao, pagina = 1, limite = 10 } = req.query;
-    
-    let resultado = produtos;
-    
-    // Filtros
-    if (categoria) resultado = resultado.filter(p => p.categoria === categoria);
-    if (preco_max) resultado = resultado.filter(p => p.preco <= parseFloat(preco_max));
-    if (preco_min) resultado = resultado.filter(p => p.preco >= parseFloat(preco_min));
-    
-    // Ordenação
-    if (ordem) {
-        resultado = resultado.sort((a, b) => {
-            if (ordem === 'preco') {
-                return direcao === 'desc' ? b.preco - a.preco : a.preco - b.preco;
+let proximoId = 11;
+
+// 2️⃣ FUNCIONALIDADES OBRIGATÓRIAS (GET)
+
+// Listar todos + Filtros + Ordenação + Paginação
+app.get('/api/filmes', (req, res) => {
+    let resultado = [...filmes];
+    const { genero, ordenar, ordem, pagina = 1, limite = 5 } = req.query;
+
+    // A. Filtrar por gênero
+    if (genero) {
+        resultado = resultado.filter(f => f.genero.toLowerCase() === genero.toLowerCase());
+    }
+
+    // B. Ordenar por título ou nota
+    if (ordenar === 'titulo' || ordenar === 'nota') {
+        resultado.sort((a, b) => {
+            if (ordem === 'desc') {
+                return a[ordenar] < b[ordenar] ? 1 : -1;
             }
-            if (ordem === 'nome') {
-                return direcao === 'desc' ? b.nome.localeCompare(a.nome) : a.nome.localeCompare(b.nome);
-            }
+            return a[ordenar] > b[ordenar] ? 1 : -1;
         });
     }
-    
-    // Paginação
-    const paginaNum = parseInt(pagina);
-    const limiteNum = parseInt(limite);
-    const inicio = (paginaNum - 1) * limiteNum;
-    const paginado = resultado.slice(inicio, inicio + limiteNum);
-    
+
+    // C. Paginação (Opcional recomendado)
+    const inicio = (pagina - 1) * limite;
+    const fim = pagina * limite;
+    const paginado = resultado.slice(inicio, fim);
+
     res.json({
-        dados: paginado,
-        paginacao: {
-            pagina_atual: paginaNum,
-            itens_por_pagina: limiteNum,
-            total_itens: resultado.length,
-            total_paginas: Math.ceil(resultado.length / limiteNum)
-        }
+        total: resultado.length,
+        pagina: Number(pagina),
+        dados: paginado
     });
 });
 
-// GET /api/produtos/:id - Buscar por ID
-app.get('/api/produtos/:id', (req, res) => {
-    const produto = produtos.find(p => p.id === parseInt(req.params.id));
-    if (!produto) return res.status(404).json({ erro: "Produto não encontrado" });
-    res.json(produto);
+// Buscar por ID
+app.get('/api/filmes/:id', (req, res) => {
+    const filme = filmes.find(f => f.id === parseInt(req.params.id));
+    if (!filme) return res.status(404).json({ erro: "Filme não encontrado" });
+    res.json(filme);
 });
 
-app.listen(3000, () => console.log('🚀 API rodando na porta 3000'));
-                        
+// Endpoint POST (conforme ensinado nos slides)
+app.post('/api/filmes', (req, res) => {
+    const { titulo, diretor, ano, genero, nota } = req.body;
+
+    // Validações básicas (Slide 5)
+    if (!titulo || !diretor || !ano || !genero || !nota) {
+        return res.status(400).json({ erro: "Todos os campos são obrigatórios!" });
+    }
+
+    const novoFilme = { id: proximoId++, titulo, diretor, ano, genero, nota };
+    filmes.push(novoFilme);
+    res.status(201).json(novoFilme);
+});
+
+app.listen(3000, () => console.log("API rodando em http://localhost:3000"));
