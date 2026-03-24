@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 
-// MIDDLEWARE OBRIGATÓRIO (Slide 2)
 app.use(express.json());
 
 // 1. Array com 10 itens iniciais (Campos: id, titulo, diretor, ano, genero, nota)
@@ -40,7 +39,7 @@ app.get('/api/filmes', (req, res) => {
         });
     }
 
-    // C. Paginação (Opcional recomendado)
+    // C. Paginação
     const inicio = (pagina - 1) * limite;
     const fim = pagina * limite;
     const paginado = resultado.slice(inicio, fim);
